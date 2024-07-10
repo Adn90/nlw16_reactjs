@@ -11,3 +11,7 @@
 
 - [ReactJs](https://react.dev/)
 - [Tailwindcss](https://tailwindcss.com/)
+
+## Práticas adotadas
+
+- SOLID
