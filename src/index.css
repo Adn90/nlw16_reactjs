@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* seta manualmente a largura mínima, evitando variação de largura entre browsers */
+* {
+  min-width: 0;
+}
