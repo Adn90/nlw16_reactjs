@@ -12,6 +12,10 @@
 - [ReactJs](https://react.dev/)
 - [Tailwindcss](https://tailwindcss.com/)
 
+### Bibliotecas
+
+- [Lucide](https://lucide.dev/guide/packages/lucide-react)
+
 ## Práticas adotadas
 
 - SOLID
