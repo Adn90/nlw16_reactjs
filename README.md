@@ -15,6 +15,7 @@
 ### Bibliotecas
 
 - [Lucide](https://lucide.dev/guide/packages/lucide-react)
+- [React Router](https://reactrouter.com/en/main)
 
 ## Práticas adotadas
 

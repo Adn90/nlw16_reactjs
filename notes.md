@@ -57,3 +57,30 @@ export default {
   plugins: [],
 }
 ```
+
+
+## React Router
+
+```ts
+// navegação de componente, igual ao angular
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <CreateTripPage />,
+  },
+  {
+    path: "/trips/:tripId",
+    element: <TripDetailsPage />,
+  },
+]);
+```
+
+```ts
+// react router tem um hook que faz as navegações
+// ao validar função, basta utiliza-lo e passar a rota
+const navigate = useNavigate();
+
+function createTrip() {
+  navigate('trips/123')
+}
+```
