@@ -162,3 +162,14 @@ function createTrip() {
   white-space: nowrap;
 }
 ```
+
+
+```tsx
+/* [color-scheme:dark] isso é passar um css literal no tailwind */
+<input 
+  type="datetime-local"
+  name='occurs_at'
+  placeholder="Data e horário da atividade"
+  className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1 [color-scheme:dark]"
+/>
+```
