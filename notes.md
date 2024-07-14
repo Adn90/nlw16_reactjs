@@ -107,3 +107,58 @@ function createTrip() {
   </div>
 </div>
 ```
+
+
+```tsx
+/* 
+  o link 2 vai diminuir de tamanho. 
+  Os elementos que tem flex [!1] não declaram quem pode aumentar (grow) ou diminuir (shrink).
+  Dessa forma o css não sabem o que fazer
+*/
+<div className="flex items-center justify-between gap-4"> /* !1 */
+  <div className="space-y-1.5">
+    <span className="block font-medium text-zinc-100">Título Link</span>
+    <span className="block font-xs text-zinc-400 truncate">
+      https://lerolero.bgnweb.com.br/121231545456d4adsadadjhjkdsa45454d5s4d5a
+    </span>                  
+  </div>
+  <Link2 className='text-zinc-400 size-5' />
+</div>
+
+/* com flex-1, permite que os tamanho dos elementos possam se adaptar */
+
+<div className="space-y-5">
+  <div className="flex items-center justify-between gap-4">
+    <div className="space-y-1.5 flex-1">
+      <span className="block font-medium text-zinc-100">Título Link</span>
+      <span className="block font-xs text-zinc-400 truncate"> /* !2 */
+        https://lerolero.bgnweb.com.br/121231545456d4adsadadjhjkdsa45454d5s4d5a
+      </span>                  
+    </div>
+    <Link2 className='text-zinc-400 size-5' />
+  </div>
+</div>
+
+/* ou declarar quem pode ou não aumentar/diminuir  shrink-0 (flex-shrink: 0;) neste caso*/
+
+<div className="space-y-5">
+  <div className="flex items-center justify-between gap-4">
+    <div className="space-y-1.5">
+      <span className="block font-medium text-zinc-100">Título Link</span>
+      <span className="block font-xs text-zinc-400 truncate">
+        https://lerolero.bgnweb.com.br/121231545456d4adsadadjhjkdsa45454d5s4d5a
+      </span>                  
+    </div>
+    <Link2 className='text-zinc-400 size-5 shrink-0' />
+  </div>
+</div>
+```
+
+```css
+// para esconder um tempo muito longo [!2]
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+```
