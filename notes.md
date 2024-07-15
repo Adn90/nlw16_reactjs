@@ -86,6 +86,73 @@ function createTrip() {
 ```
 
 
+## children ReactNode
+
+Passar conteúdo reutilizáveis e encapsular partes do código em componentes
+Forma reutilizar conteúdo dentro de outros componentes
+
+```tsx
+interface ButtonProps {
+  // ReactNode é qualquer coisa que poderia ser escrita no html
+  children: ReactNode; 
+}
+```
+
+- passar funções
+
+```tsx
+/*
+  Forma trabalhosa, já que sempre que algum btn precisar de 
+  nova funcionalidade de botões, será necessária add na interface.
+*/
+interface ButtonProps {
+  children: ReactNode;
+  onClick: () => void;
+}
+
+export function Button({
+  children,
+  onClick
+}: ButtonProps) {
+  return (
+    <button 
+    onClick={onClick}
+      className='bg-zinc-800 text-zinc-200 rounded-lg px-5 py-2 font-medium flex items-center gap-2 hover:bg-zinc-700'
+    >
+      { children }
+    </button>
+  );
+}
+```
+
+> Para resolver isso, basta herdar uma classe do react: ComponentProps
+
+```tsx
+// dessa forma, esta props recebe todas as funcionalidades presentes em um botão html
+interface ButtonProps extends ComponentProps<'button'> {
+  children: ReactNode;
+}
+
+/*
+  para não passar todas as props na mão, se pode utilizar rest operator.
+  depois basta passar como spread operator dentro da tag
+*/ 
+
+export function Button({
+  children,
+  ...props 
+}: ButtonProps) {
+  return (
+    <button 
+      {...props}
+      className='bg-zinc-800 text-zinc-200 rounded-lg px-5 py-2 font-medium flex items-center gap-2 hover:bg-zinc-700'
+    >
+      { children }
+    </button>
+  );
+}
+
+```
 
 ### dicas
 
