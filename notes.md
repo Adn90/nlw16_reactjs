@@ -151,7 +151,91 @@ export function Button({
     </button>
   );
 }
+```
 
+- Caso um componente mude algo no estilo ('variants'). No Tailwind, existe a lib [tailwind-variants]
+
+```tsx
+import { ComponentProps, ReactNode } from "react";
+import { tv } from "tailwind-variants";
+
+interface ButtonProps extends ComponentProps<'button'> {
+  children: ReactNode;
+}
+
+const buttonVariants = tv({
+  base: 'rounded-lg px-5 py-2 font-medium flex items-center gap-2', /* elementos que todo componente compartilha */
+  variants: { // como o nome diz, variações que o componente vai ter nas classe do tailwind
+    variant: {
+      primary: 'bg-lime-300 text-lime-900 hover:bg-lime-400',
+      secondary: 'bg-zinc-800 text-zinc-200 hover:bg-zinc-700'
+    }
+  },
+  defaultVariants: { // variant default, quando ela não for indicada className={buttonVariants()}
+    variant: 'primary'
+  }
+});
+
+export function Button({
+  children,
+  ...props
+}: ButtonProps) {
+  return (
+    <button 
+      {...props}
+      className={buttonVariants({variant: "secondary"})}
+    >
+      { children }
+    </button>
+  );
+}
+```
+
+- para passar como 'input' no prop, pode se colocar um att na interface 
+- Porém o att variant precisa ser modificado em caso de remoção ou adição de nova variante
+- o tailwind-variants tem uma classe que cuida da tipagem das variants <!-- !3 -->
+```tsx
+interface ButtonProps extends ComponentProps<'button'>/* , VariantProps<typeof buttonVariants> */ {
+  children: ReactNode;
+  variant: 'primary' | 'secondary'
+}
+
+export function Button({
+  children,
+  variant,
+  ...props
+}: ButtonProps) {
+  return (
+    <button 
+      {...props}
+      className={buttonVariants({variant})}
+    >
+      { children }
+    </button>
+  );
+}
+```
+
+```tsx
+/* [!3] */
+interface ButtonProps extends ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
+  children: ReactNode;
+}
+
+export function Button({
+  children,
+  variant,
+  ...props
+}: ButtonProps) {
+  return (
+    <button 
+      {...props}
+      className={buttonVariants({variant})}
+    >
+      { children }
+    </button>
+  );
+}
 ```
 
 ### dicas
