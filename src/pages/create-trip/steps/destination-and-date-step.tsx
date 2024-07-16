@@ -1,5 +1,10 @@
 import { ArrowRight, Calendar, MapPin, Settings2 } from "lucide-react";
 import { Button } from "../../../components/button";
+import { useState } from "react";
+import { Modal } from "../../../components/modal";
+import { DateRange, DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+import { format } from "date-fns";
 
 interface DestinationAndDateStepProps {
   isGuestInputOpen: boolean;
@@ -10,6 +15,17 @@ export function DestinationAndDateStep({
   isGuestInputOpen,
   toggleGuestInput
 }: DestinationAndDateStepProps) {
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [eventStartAndEndDates, setEventStartAndEndDates] = useState<DateRange | undefined>();
+
+  function toggleDatePicker() {
+    setIsDatePickerOpen(datePicker => !datePicker);
+  }
+
+  const displayDate = eventStartAndEndDates && eventStartAndEndDates.from && eventStartAndEndDates.to
+    ? format(eventStartAndEndDates.from, "d' de 'LLL").concat(' até ').concat(format(eventStartAndEndDates.to, "d' de 'LLL"))
+    : null;
+
   return (
     <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3">
             
@@ -23,15 +39,28 @@ export function DestinationAndDateStep({
         />
       </div>
       
-      <div className='flex items-center gap-2'>
+      <button 
+        className='flex items-center gap-2 text-left w-[240px]'
+        onClick={toggleDatePicker}
+      >
         <Calendar className='size-5 text-zinc-400' />
-        <input 
-          type="date" 
-          placeholder="Quando?"
-          disabled={isGuestInputOpen}
-          className="bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" 
-        />
-      </div>
+        <span className="text-lg text-zinc-400 w-40 flex-1">
+          {displayDate || 'Quando?'}
+        </span>
+      </button>
+
+      {isDatePickerOpen && (
+        <Modal 
+          modalTitle="Selecione a data"
+          toggleFunction={toggleDatePicker}
+        >
+          <DayPicker 
+            mode="range"
+            selected={eventStartAndEndDates}
+            onSelect={setEventStartAndEndDates}
+          />
+        </Modal>
+      )};
 
       <div className='w-px h-6 bg-zinc-800' />
 

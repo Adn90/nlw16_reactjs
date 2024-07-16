@@ -17,6 +17,7 @@
 - [Lucide](https://lucide.dev/guide/packages/lucide-react)
 - [React Router](https://reactrouter.com/en/main)
 - [Tailwind Variants](https://www.tailwind-variants.org/)
+- [React Daypicker](https://daypicker.dev/start)
 
 ## Práticas adotadas
 
