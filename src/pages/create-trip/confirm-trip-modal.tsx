@@ -1,5 +1,6 @@
 import { User, X } from "lucide-react";
 import { FormEvent } from "react";
+import { Button } from "../../components/button";
 
 interface ConfirmTripModalProps {
   toggleConfirmTripModal: () => void;
@@ -48,11 +49,9 @@ export function ConfirmTripModal({
             />
           </div>
 
-          <button 
-            type='submit'
-            className='bg-lime-300 text-lime-900 rounded-lg px-5 h-14 font-medium justify-center flex items-center gap-2 hover:bg-lime-400'
-          > Confirmar criação da viagem
-          </button>
+          <Button variant="primary" type='submit' size="full">
+            Confirmar criação da viagem
+          </Button>
         </form>
       </div>
     </div>

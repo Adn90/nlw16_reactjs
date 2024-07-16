@@ -86,8 +86,9 @@ function createTrip() {
 ```
 
 
-## children ReactNode
+## Shared Components
 
+### children ReactNode
 Passar conteúdo reutilizáveis e encapsular partes do código em componentes
 Forma reutilizar conteúdo dentro de outros componentes
 
@@ -154,6 +155,14 @@ export function Button({
 ```
 
 - Caso um componente mude algo no estilo ('variants'). No Tailwind, existe a lib [tailwind-variants]
+- Se utilizar TailwindCSS IntelliSense Extension, pode colocar um propriedade para IntelliSense no arquivo settings.json.
+```json
+{
+  "tailwindCSS.experimental.classRegex": [
+    ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ]
+}
+```
 
 ```tsx
 import { ComponentProps, ReactNode } from "react";
@@ -194,6 +203,7 @@ export function Button({
 - para passar como 'input' no prop, pode se colocar um att na interface 
 - Porém o att variant precisa ser modificado em caso de remoção ou adição de nova variante
 - o tailwind-variants tem uma classe que cuida da tipagem das variants <!-- !3 -->
+
 ```tsx
 interface ButtonProps extends ComponentProps<'button'>/* , VariantProps<typeof buttonVariants> */ {
   children: ReactNode;
