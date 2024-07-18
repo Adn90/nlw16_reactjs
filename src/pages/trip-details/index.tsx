@@ -49,7 +49,7 @@ export function TripDetailsPage() {
        <CreateActivityModal
         toggleCreateActivitModalOpen={toggleCreateActivitModalOpen} 
        />
-      )};
+      )}
     </div>
   );
 }
