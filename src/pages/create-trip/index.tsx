@@ -4,6 +4,7 @@ import { InviteGuestsModal } from './invite-guests-modal';
 import { ConfirmTripModal } from './confirm-trip-modal';
 import { DestinationAndDateStep } from './steps/destination-and-date-step';
 import { InviteGuestsStep } from './steps/invite-guests-step';
+import { DateRange } from 'react-day-picker';
 
 export function CreateTripPage() {
   const navigate = useNavigate();
@@ -12,6 +13,11 @@ export function CreateTripPage() {
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
   const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false);
   
+  const [destination, setDestination] = useState('');
+  const [ownerName, setOwnerName] = useState('');
+  const [ownerEmail, setOwnerEmail] = useState('');
+  const [eventStartAndEndDates, setEventStartAndEndDates] = useState<DateRange | undefined>();
+
   const [emailsToInvite, setemailsToInvite] = useState<string[]>([]);
 
   function toggleGuestInput() {
@@ -48,7 +54,12 @@ export function CreateTripPage() {
 
   function createTrip(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    navigate('trips/123')
+    console.log(destination)
+    console.log(ownerName)
+    console.log(ownerEmail)
+    console.log(eventStartAndEndDates)
+    console.log(emailsToInvite)
+    // navigate('trips/123');
   }
  
   return (
@@ -64,6 +75,9 @@ export function CreateTripPage() {
           <DestinationAndDateStep 
             isGuestInputOpen={isGuestInputOpen}
             toggleGuestInput={toggleGuestInput}
+            setDestination={setDestination}
+            eventStartAndEndDates={eventStartAndEndDates}
+            setEventStartAndEndDates={setEventStartAndEndDates}
           />
           {isGuestInputOpen && (
             <InviteGuestsStep
@@ -97,6 +111,8 @@ export function CreateTripPage() {
         <ConfirmTripModal 
           toggleConfirmTripModal={toggleConfirmTripModal} 
           createTrip={createTrip}
+          setOwnerName={setOwnerName}
+          setOwnerEmail={setOwnerEmail}
         />
       )};
       
