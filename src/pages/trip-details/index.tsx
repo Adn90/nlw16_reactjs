@@ -8,6 +8,7 @@ import { DestinationAndDateHeader } from "./destination-and-date-header";
 
 export function TripDetailsPage() {
   const [isCreateActivityModalOpen, setIsCreateActivityModalOpen] = useState(false);
+  const [isNewActivity, setNewActivity] = useState(false);
 
   function toggleCreateActivitModalOpen() {
     setIsCreateActivityModalOpen(activityModal => !activityModal);
@@ -31,7 +32,7 @@ export function TripDetailsPage() {
             </button>
           </div>
 
-          <Activities />       
+          <Activities isNewActivity={isNewActivity}/>       
 
         </div>
 
@@ -47,7 +48,8 @@ export function TripDetailsPage() {
 
       {isCreateActivityModalOpen && (
        <CreateActivityModal
-        toggleCreateActivitModalOpen={toggleCreateActivitModalOpen} 
+        toggleCreateActivitModalOpen={toggleCreateActivitModalOpen}
+        setNewActivity={setNewActivity}
        />
       )}
     </div>

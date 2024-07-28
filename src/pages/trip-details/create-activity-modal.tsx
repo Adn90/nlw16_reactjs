@@ -3,13 +3,16 @@ import { Button } from "../../components/button";
 import { FormEvent } from "react";
 import { api } from "../../lib/axios";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 interface CreateActivityModalProps {
   toggleCreateActivitModalOpen: () => void;
+  setNewActivity: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export function CreateActivityModal({ 
-  toggleCreateActivitModalOpen 
+  toggleCreateActivitModalOpen,
+  setNewActivity 
 }: CreateActivityModalProps) {
 
   const { tripId } = useParams();
@@ -20,14 +23,19 @@ export function CreateActivityModal({
     const title = data.get('title')?.toString();
     const occurs_at = data.get('occurs_at')?.toString();
 
+    if (!title || !occurs_at) {
+      toast.warning("Atividade e data devem ser preenchidos!");
+      return;
+    }   
+
     await api.post(`/trips/${tripId}/activities`, {
       title,
       occurs_at,
     });
 
+    setNewActivity(true);
     toggleCreateActivitModalOpen();    
   }
-
   return (
     <div className='fixed inset-0 bg-black/60 flex items-center justify-center'>
       <div className='w-[640px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5'>

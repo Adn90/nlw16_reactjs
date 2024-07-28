@@ -14,13 +14,24 @@ interface Activity {
   }[];
 }
 
-export function Activities() {
+interface ActivitiesProps {
+  isNewActivity: boolean;
+}
+
+export function Activities({
+  isNewActivity
+}: ActivitiesProps) {
   const { tripId } = useParams();
   const [activities, setActivities] = useState<Activity[]>([]);
 
   useEffect(() => {
     api.get(`/trips/${tripId}/activities`).then(res => setActivities(res.data.activities));
   }, [tripId]);
+
+  useEffect(() => {
+    api.get(`/trips/${tripId}/activities`).then(res => setActivities(res.data.activities));
+  }, [isNewActivity == true]);
+  
 
   return (
     <div className="flex flex-col gap-8">
