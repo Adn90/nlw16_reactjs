@@ -6,6 +6,7 @@ import { DestinationAndDateStep } from './steps/destination-and-date-step';
 import { InviteGuestsStep } from './steps/invite-guests-step';
 import { DateRange } from 'react-day-picker';
 import { api } from '../../lib/axios';
+import { toast } from 'sonner';
 
 export function CreateTripPage() {
   const navigate = useNavigate();
@@ -22,6 +23,10 @@ export function CreateTripPage() {
   const [emailsToInvite, setemailsToInvite] = useState<string[]>([]);
 
   function toggleGuestInput() {
+    if (!destination || !eventStartAndEndDates) {
+      toast.warning("Destino e datas devem ser preenchidos!");
+      return;
+    }
     setIsGuestInputOpen(guestInputOpen => !guestInputOpen);
   }
 
@@ -50,25 +55,23 @@ export function CreateTripPage() {
   }
 
   function toggleConfirmTripModal() {
+    if (emailsToInvite.length == 0) {
+      toast.warning("Nunhuma pessoa foi convidada!");
+      return;
+    }
     setIsConfirmTripModalOpen(tripModalOpen => !tripModalOpen);
   }
 
   async function createTrip(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(destination)
-    console.log(eventStartAndEndDates)
-    console.log(eventStartAndEndDates)
-    console.log(emailsToInvite)
-    console.log(ownerName)
-    console.log(ownerEmail)
-
+    
     if (!destination) { return; }
     if (!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) {
       return;
     }
     if (emailsToInvite.length == 0) { return; }
     if (!ownerName || !ownerEmail) { return; }
-
+    
     const response = await api.post('/trips', {
       destination: destination,
       starts_at: eventStartAndEndDates.from,
@@ -76,10 +79,14 @@ export function CreateTripPage() {
       emails_to_invite: emailsToInvite,
       owner_name: ownerName,
       owner_email: ownerEmail
-    });
-
-    const { tripId } = response.data;
-    navigate(`/trips/${tripId}`);
+    })
+    .then(response => {
+      const { tripId } = response.data;
+      navigate(`/trips/${tripId}`);
+    })
+    .catch((error) => {
+      toast.error(error.message)
+    });    
   }
  
   return (

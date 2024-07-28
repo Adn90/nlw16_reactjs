@@ -66,7 +66,7 @@ export function DestinationAndDateStep({
             onSelect={setEventStartAndEndDates}
           />
         </Modal>
-      )};
+      )}
 
       <div className='w-px h-6 bg-zinc-800' />
 

@@ -19,3 +19,4 @@
 - [Tailwind Variants](https://www.tailwind-variants.org/)
 - [React Daypicker](https://daypicker.dev/start)
 - [Axios](https://axios-http.com/docs/intro)
+- [Sonner](https://sonner.emilkowal.ski/)
