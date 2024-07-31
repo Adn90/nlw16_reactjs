@@ -1,7 +1,15 @@
 import { Link2, Plus } from "lucide-react";
 import { Button } from "../../components/button";
+import { useState } from "react";
+import { Modal } from "../../components/modal";
+import { CreateImportantLinksModal } from "./create-important-links-modal";
 
 export function ImportantLinks() {
+  const [isCreateNewImportantLinkOpen, setIsCreateNewImportantLinkOpen] = useState(false);
+
+  function toggleCreateNewImportantLinkOpen() {
+    setIsCreateNewImportantLinkOpen(linkModal => !linkModal);
+  }
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold">Links importantes</h2>
@@ -28,10 +36,27 @@ export function ImportantLinks() {
         </div>
       </div>
       
-      <Button variant="secondary" size="full">
+      <Button 
+        variant="secondary" 
+        size="full"
+        onClick={toggleCreateNewImportantLinkOpen}
+      >
         <Plus className='size-5' />
         Cadastrar novo link
       </Button>
+
+      {isCreateNewImportantLinkOpen && (
+        <Modal
+          modalTitle="Cadastrar link importante"
+          toggleFunction={toggleCreateNewImportantLinkOpen}
+          modalSize={640}
+        >
+          <CreateImportantLinksModal
+        
+          />
+        </Modal>
+      
+      )}
     </div>
   );
 }
