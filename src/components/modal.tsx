@@ -14,10 +14,9 @@ export function Modal({
   children,
   modalSize
 }: ModalProps) {
-  const modalSizeClassName = `w-[${modalSize}px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5`;
   return (
     <div className='fixed inset-0 bg-black/60 flex items-center justify-center'>
-      <div className={modalSizeClassName}>
+      <div className={`w-[${modalSize}px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5`}>
         <div className='flex flex-col gap-2'> {/*  */}
           <div className='flex items-center justify-between'>
             <h2 className='text-lg font-semibold'>{modalTitle}</h2>

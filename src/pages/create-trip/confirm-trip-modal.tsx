@@ -27,8 +27,8 @@ export function ConfirmTripModal({
           </div>
           <p className='text-sm text-zinc-400'>
             Para concluir a criação da viagem para 
-            <span className='font-semibold text-zinc-100'>Florianópolis, Brasil</span> 
-            nas datas de <span className='font-semibold text-zinc-100'>16 a 27 de Agosto de 2024</span> preencha seus dados abaixo:              
+            <span className='font-semibold text-zinc-100'> Florianópolis, Brasil </span> 
+            nas datas de <span className='font-semibold text-zinc-100'> 16 a 27 de Agosto de 2024 </span> preencha seus dados abaixo:              
           </p>
         </div>
 
