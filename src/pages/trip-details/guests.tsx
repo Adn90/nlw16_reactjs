@@ -3,6 +3,7 @@ import { Button } from "../../components/button";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
+import { Modal } from "../../components/modal";
 
 interface Participants {
   id: string;
@@ -14,6 +15,13 @@ interface Participants {
 export function Guests() {
   const { tripId } = useParams();
   const [participants, setParticipants] = useState<Participants[]>([]);
+
+  const [isManageGuestsModalOpen, setIsManageGuestsModalOpen] = useState(false);
+  // const [isNewConfigUser, setIsNewConfigUser] = useState(false);
+
+  function toggleManageGuestsModal() {
+    setIsManageGuestsModalOpen(guestManager => !guestManager);
+  }
 
   useEffect(() => {
     api.get(`/trips/${tripId}/participants`).then(res => setParticipants(res.data.participants));
@@ -43,10 +51,24 @@ export function Guests() {
         })}
       </div>
       
-      <Button variant="secondary" size="full">
-        <UserCog className='size-5' />
+      <Button 
+        variant="secondary" 
+        size="full"
+        onClick={toggleManageGuestsModal}
+      >
+        <UserCog className='size-5'/>
         Gerenciar convidados
       </Button>
+
+
+      {isManageGuestsModalOpen && (
+        <Modal
+          modalTitle="Confirmar participação"
+          toggleFunction={toggleManageGuestsModal}
+        >
+          <h1>dsad</h1>
+        </Modal>
+      )}
     </div>
   );
 }

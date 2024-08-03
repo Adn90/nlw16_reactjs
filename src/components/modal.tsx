@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 
 interface ModalProps {
   modalTitle: string;
+  modalSubTitle?: string;
   toggleFunction: () => void;
   children: ReactNode;
   modalSize?: number;
@@ -12,7 +13,8 @@ export function Modal({
   modalTitle,
   toggleFunction,
   children,
-  modalSize
+  modalSize,
+  modalSubTitle
 }: ModalProps) {
   return (
     <div className='fixed inset-0 bg-black/60 flex items-center justify-center'>
@@ -24,6 +26,9 @@ export function Modal({
               <X className='size-5 text-zinc-400'/>
             </button>
           </div>
+          <p className='text-sm text-zinc-400'>
+            {modalSubTitle}      
+          </p>
         </div>
         { children }
       </div>

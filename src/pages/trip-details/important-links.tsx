@@ -65,6 +65,7 @@ export function ImportantLinks() {
           modalTitle="Cadastrar link importante"
           toggleFunction={toggleCreateNewImportantLinkOpen}
           modalSize={540}
+          modalSubTitle="Todos convidados podem visualizar os links importantes."
         >
           <CreateImportantLinksModal
             setNewLink={setNewLink}
