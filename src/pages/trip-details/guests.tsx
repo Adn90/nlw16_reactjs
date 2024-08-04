@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
 import { Modal } from "../../components/modal";
+import { ManagerGuestModal } from "./manager-guest-modal";
 
-interface Participants {
+export interface Participants {
   id: string;
   name: string | null;
   email: string;
@@ -17,15 +18,19 @@ export function Guests() {
   const [participants, setParticipants] = useState<Participants[]>([]);
 
   const [isManageGuestsModalOpen, setIsManageGuestsModalOpen] = useState(false);
-  // const [isNewConfigUser, setIsNewConfigUser] = useState(false);
+  const [isUserConfirmed, setIsUserConfirmed] = useState(false);
 
-  function toggleManageGuestsModal() {
+  function toggleManageGuestsModalOpen() {
     setIsManageGuestsModalOpen(guestManager => !guestManager);
   }
 
   useEffect(() => {
     api.get(`/trips/${tripId}/participants`).then(res => setParticipants(res.data.participants));
-  }, [tripId]);
+  }, [tripId || isUserConfirmed == true]);
+
+  // useEffect(() => {
+  //   api.get(`/trips/${tripId}/participants`).then(res => setParticipants(res.data.participants));
+  // }, [isUserConfirmed == true]);  
 
   return (
     <div className="space-y-6">
@@ -54,7 +59,7 @@ export function Guests() {
       <Button 
         variant="secondary" 
         size="full"
-        onClick={toggleManageGuestsModal}
+        onClick={toggleManageGuestsModalOpen}
       >
         <UserCog className='size-5'/>
         Gerenciar convidados
@@ -64,9 +69,14 @@ export function Guests() {
       {isManageGuestsModalOpen && (
         <Modal
           modalTitle="Confirmar participação"
-          toggleFunction={toggleManageGuestsModal}
+          toggleFunction={toggleManageGuestsModalOpen}
+          modalSize={540}
         >
-          <h1>dsad</h1>
+          <ManagerGuestModal 
+            participants={participants}
+            toggleManageGuestsModalOpen={toggleManageGuestsModalOpen}
+            setIsUserConfirmed={setIsUserConfirmed}
+          />
         </Modal>
       )}
     </div>

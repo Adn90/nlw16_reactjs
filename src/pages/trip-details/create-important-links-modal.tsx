@@ -9,7 +9,6 @@ import { useParams } from "react-router-dom";
 interface LinkProps {
   setNewLink: React.Dispatch<React.SetStateAction<boolean>>
   toggleCreateNewImportantLinkOpen: () => void;
-  isNewLink: boolean;
 }
 
 export function CreateImportantLinksModal({

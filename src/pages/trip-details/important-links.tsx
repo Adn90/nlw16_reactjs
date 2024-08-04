@@ -69,7 +69,6 @@ export function ImportantLinks() {
         >
           <CreateImportantLinksModal
             setNewLink={setNewLink}
-            isNewLink={isNewLink}
             toggleCreateNewImportantLinkOpen={toggleCreateNewImportantLinkOpen}
           />
         </Modal>
