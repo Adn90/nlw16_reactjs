@@ -26,11 +26,11 @@ export function Guests() {
 
   useEffect(() => {
     api.get(`/trips/${tripId}/participants`).then(res => setParticipants(res.data.participants));
-  }, [tripId || isUserConfirmed == true]);
+  }, [tripId]);
 
-  // useEffect(() => {
-  //   api.get(`/trips/${tripId}/participants`).then(res => setParticipants(res.data.participants));
-  // }, [isUserConfirmed == true]);  
+  useEffect(() => {
+    api.get(`/trips/${tripId}/participants`).then(res => setParticipants(res.data.participants));
+  }, [isUserConfirmed == true]);  
 
   return (
     <div className="space-y-6">

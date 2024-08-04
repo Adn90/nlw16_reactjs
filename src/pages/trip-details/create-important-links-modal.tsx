@@ -31,7 +31,7 @@ export function CreateImportantLinksModal({
       title,
       url,
     })
-    .then(response => {
+    .then(() => {
       toast.success(`Link: '${title}' foi criado com sucesso!`);
       toggleCreateNewImportantLinkOpen();
       setNewLink(true);

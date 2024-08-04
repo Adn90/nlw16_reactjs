@@ -4,6 +4,7 @@ import { FormEvent } from "react";
 import { api } from "../../lib/axios";
 import { toast } from "sonner";
 import { Participants } from "./guests";
+import { useParams } from "react-router-dom";
 
 
 interface ManagerGuestModalProps {
@@ -17,9 +18,11 @@ export function ManagerGuestModal({
   toggleManageGuestsModalOpen,
   setIsUserConfirmed
 }: ManagerGuestModalProps) {
-  
+
+  const { tripId } = useParams();
+
   async function confirmGuest(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault();    
 
     const data = new FormData(event.currentTarget);
     const name = data.get('name')?.toString();
@@ -30,23 +33,38 @@ export function ManagerGuestModal({
     if (participant) {
       const id = participant.id;
       await api.patch(`/participants/${id}/confirm`, {
-        id,
+        // id,
+        // name,
+        // email,
+      })
+      .then(() => {
+        toast.success(`${email} foi confirmado com sucesso!`);
+        managerGuestSucess();
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+    } else {
+      await api.post(`/trips/${tripId}/invites`, {
+        tripId,
         name,
         email,
       })
-      .then(response => {
-        console.log(response)
-        toast.success(`${response}`);
-        toggleManageGuestsModalOpen();
-        setIsUserConfirmed(true);
+      .then(() => {
+        toast.success(`${email} foi convidado com sucesso!`);
+        managerGuestSucess();
       })
       .catch((error) => {
         toast.error(error.message);
       });
     }
-
-    
   }
+
+  function managerGuestSucess(): void {
+    toggleManageGuestsModalOpen();
+    setIsUserConfirmed(true);
+  }
+
   return (
     <form onSubmit={confirmGuest} className='flex flex-col gap-3'>
       <div className='h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2'>
